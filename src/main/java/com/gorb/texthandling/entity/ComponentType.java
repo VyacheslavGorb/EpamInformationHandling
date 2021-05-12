@@ -1,12 +1,12 @@
 package com.gorb.texthandling.entity;
 
 public enum ComponentType {
-    TEXT(""),
-    PARAGRAPH("\n\t"),
+    TEXT("\n\t"),
+    PARAGRAPH(" "),
     SENTENCE(" "),
-    LEXEME(" "),
-    EXPRESSION(""),
+    LEXEME(""),
     WORD(""),
+    EXPRESSION(""),
     SYMBOL_LEAF(""),
     PUNCTUATION_LEAF(""),
     EXPRESSION_LEAF("");

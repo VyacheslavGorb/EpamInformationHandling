@@ -16,7 +16,6 @@ public class WordParser implements InformationParser {
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        logger.log(Level.DEBUG, "Word: $" + text + "$");
         var component = new TextComposite(ComponentType.WORD);
         String[] characters = text.split(WORD_SPLIT_REGEX);
         for (String ch : characters) {

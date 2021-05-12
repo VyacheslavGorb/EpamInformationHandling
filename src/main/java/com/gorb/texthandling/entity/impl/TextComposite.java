@@ -2,17 +2,22 @@ package com.gorb.texthandling.entity.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
 import com.gorb.texthandling.entity.TextComponent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.gorb.texthandling.exception.TextException;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class TextComposite implements TextComponent {
     private List<TextComponent> components = new ArrayList<>();
     private ComponentType type;
 
-    public TextComposite(ComponentType type){
+    public TextComposite(ComponentType type) throws TextException {
+        EnumSet<ComponentType> symbolTypes = EnumSet.range(ComponentType.TEXT,ComponentType.EXPRESSION);
+        if(!symbolTypes.contains(type)){
+            throw new TextException("Illegal text composite type");
+        }
         this.type = type;
     }
 
@@ -43,6 +48,13 @@ public class TextComposite implements TextComponent {
 
     @Override
     public String toString() {
-        return type.name();
+        StringJoiner joiner = new StringJoiner(type.getDelimiter());
+        if(type == ComponentType.TEXT) {
+            joiner.add("\t");
+        }
+        for (TextComponent component: components){
+            joiner.add(component.toString());
+        }
+        return joiner.toString();
     }
 }

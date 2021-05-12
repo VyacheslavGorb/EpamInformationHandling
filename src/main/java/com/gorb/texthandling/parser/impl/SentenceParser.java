@@ -24,7 +24,6 @@ public class SentenceParser implements InformationParser {
             logger.log(Level.ERROR, "Lexeme parser is not specified");
             throw new TextException("Lexeme parser is not specified");
         }
-        logger.log(Level.DEBUG, "Sentence: $" + text + "$");
         String[] lexemes = text.split(SENTENCE_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.SENTENCE);
         for (String lexeme : lexemes) {

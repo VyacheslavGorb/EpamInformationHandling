@@ -25,7 +25,6 @@ public class LexemeParser implements InformationParser {
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        logger.log(Level.DEBUG, "Lexeme: $" + text + "$");
         if (wordParser == null || expressionParser == null) {
             logger.log(Level.ERROR, "At least one of parsers is not specified");
             throw new TextException("At least one of parsers is not specified");

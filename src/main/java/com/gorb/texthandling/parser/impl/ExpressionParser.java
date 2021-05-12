@@ -17,7 +17,6 @@ public class ExpressionParser implements InformationParser {
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        logger.log(Level.DEBUG, "Expression: $" + text + "$");
         var component = new TextComposite(ComponentType.EXPRESSION);
         String[] characters = text.split(WORD_SPLIT_REGEX);
         for (String ch : characters) {
