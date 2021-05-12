@@ -13,7 +13,7 @@ public enum ComponentType {
 
     private final String delimiter;
 
-    ComponentType(String delimiter){
+    ComponentType(String delimiter) {
         this.delimiter = delimiter;
     }
 

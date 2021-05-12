@@ -14,19 +14,19 @@ public class ParagraphParser implements InformationParser {
     private static final String PARAGRAPH_SPLIT_REGEX = "((?<=[?!]|((?<!\\.)\\.(?!\\.))|(\\.\\.\\.)))\\s+";
     private InformationParser nextParser;
 
-    public ParagraphParser(InformationParser nextParser){
+    public ParagraphParser(InformationParser nextParser) {
         this.nextParser = nextParser;
     }
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        if(nextParser == null){
+        if (nextParser == null) {
             logger.log(Level.ERROR, "Sentence parser is not specified");
             throw new TextException("Sentence parser is not specified");
         }
         String[] sentences = text.split(PARAGRAPH_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.PARAGRAPH);
-        for(String sentence: sentences){
+        for (String sentence : sentences) {
             TextComponent sentenceComponent = nextParser.parse(sentence);
             component.add(sentenceComponent);
         }

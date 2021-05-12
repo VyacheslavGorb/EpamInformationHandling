@@ -4,10 +4,10 @@ import com.gorb.texthandling.parser.InformationParser;
 import com.gorb.texthandling.parser.impl.*;
 
 public class TextParserCreator {
-    private TextParserCreator(){
+    private TextParserCreator() {
     }
 
-    public static InformationParser createParser(){
+    public static InformationParser createParser() {
         WordParser wordParser = new WordParser();
         ExpressionParser expressionParser = new ExpressionParser();
         LexemeParser lexemeParser = new LexemeParser(wordParser, expressionParser);

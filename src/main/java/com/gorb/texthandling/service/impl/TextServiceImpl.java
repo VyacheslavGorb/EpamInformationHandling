@@ -37,7 +37,6 @@ public class TextServiceImpl implements TextService {
     }
 
 
-
     @Override
     public void findSentenceContainingLongestWord(TextComponent component) {
         //TODO
@@ -67,15 +66,15 @@ public class TextServiceImpl implements TextService {
     }
 
 
-    private int countWords(TextComponent component){
+    private int countWords(TextComponent component) {
         List<TextComponent> childComponents = component.getChildren();
         EnumSet<ComponentType> validTypes = EnumSet.range(ComponentType.TEXT, ComponentType.WORD);
         int count = 0;
-        for(TextComponent childComponent: childComponents){
+        for (TextComponent childComponent : childComponents) {
             ComponentType currentType = childComponent.getType();
-            if(currentType == ComponentType.WORD){
+            if (currentType == ComponentType.WORD) {
                 count++;
-            }else if (validTypes.contains(currentType)){
+            } else if (validTypes.contains(currentType)) {
                 count += countWords(childComponent);
             }
         }

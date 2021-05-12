@@ -16,8 +16,8 @@ public class CompositeLeaf implements TextComponent {
     private char symbol;
 
     public CompositeLeaf(ComponentType symbolType, char symbol) throws TextException {
-        EnumSet<ComponentType> symbolTypes = EnumSet.range(ComponentType.SYMBOL_LEAF,ComponentType.EXPRESSION_LEAF);
-        if(!symbolTypes.contains(symbolType)){
+        EnumSet<ComponentType> symbolTypes = EnumSet.range(ComponentType.SYMBOL_LEAF, ComponentType.EXPRESSION_LEAF);
+        if (!symbolTypes.contains(symbolType)) {
             throw new TextException("Illegal leaf type");
         }
         this.symbol = symbol;

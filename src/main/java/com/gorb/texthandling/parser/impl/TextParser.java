@@ -14,20 +14,20 @@ public class TextParser implements InformationParser {
     private static final String TEXT_SPLIT_REGEX = "\\n+[\\s]*";
     private InformationParser nextParser;
 
-    public TextParser(InformationParser nextParser){
+    public TextParser(InformationParser nextParser) {
         this.nextParser = nextParser;
     }
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        if(nextParser == null){
+        if (nextParser == null) {
             logger.log(Level.ERROR, "Paragraph parser is not specified");
             throw new TextException("Paragraph parser is not specified");
         }
 
         String[] paragraphs = text.strip().split(TEXT_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.TEXT);
-        for(String paragraph: paragraphs){
+        for (String paragraph : paragraphs) {
             TextComponent paragraphComponent = nextParser.parse(paragraph);
             component.add(paragraphComponent);
         }

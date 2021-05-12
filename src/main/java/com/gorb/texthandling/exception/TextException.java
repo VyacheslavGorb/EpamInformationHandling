@@ -1,6 +1,6 @@
 package com.gorb.texthandling.exception;
 
-public class TextException extends Exception{
+public class TextException extends Exception {
     public TextException() {
     }
 
