@@ -4,10 +4,7 @@ import com.gorb.texthandling.entity.ComponentType;
 import com.gorb.texthandling.entity.TextComponent;
 import com.gorb.texthandling.exception.TextException;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class TextComposite implements TextComponent {
     private List<TextComponent> components = new ArrayList<>();
@@ -44,6 +41,19 @@ public class TextComposite implements TextComponent {
     @Override
     public ComponentType getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextComposite that = (TextComposite) o;
+        return components.equals(that.components) && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(components, type);
     }
 
     @Override
