@@ -54,6 +54,22 @@ public class CompositeLeaf implements TextComponent {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CompositeLeaf that = (CompositeLeaf) o;
+        return symbol == that.symbol && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result += result * 31 + type.hashCode();
+        result += result * 31 + Character.hashCode(symbol);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return Character.toString(symbol);
     }

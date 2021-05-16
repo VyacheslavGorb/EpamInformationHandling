@@ -4,7 +4,10 @@ import com.gorb.texthandling.entity.ComponentType;
 import com.gorb.texthandling.entity.TextComponent;
 import com.gorb.texthandling.exception.TextException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class TextComposite implements TextComponent {
     private List<TextComponent> components = new ArrayList<>();
@@ -53,7 +56,10 @@ public class TextComposite implements TextComponent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(components, type);
+        int result = 1;
+        result += result * 31 + components.hashCode();
+        result += result * 31 + type.hashCode();
+        return result;
     }
 
     @Override

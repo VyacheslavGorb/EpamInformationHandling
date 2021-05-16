@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class TextServiceImpl implements TextService {
     private static final Logger logger = LogManager.getLogger();
     private static final String VOWEL_REGEX = "[AEIOUaeiou]";
-    private static final String CONSONANT_REGEX = "[^AEIOUaeiou][A-Za-z]";
+    private static final String CONSONANT_REGEX = "[[^AEIOUaeiou]&&A-Za-z]";
 
     @Override
     public void sortParagraphsBySentenceCount(TextComponent component) throws TextException {
@@ -61,7 +61,7 @@ public class TextServiceImpl implements TextService {
                 .map(this::countMaximalWordLength)
                 .max(Integer::compareTo);
 
-        if (maxLength.isEmpty()){
+        if (maxLength.isEmpty()) {
             logger.log(Level.ERROR, "Component contains no words");
             throw new TextException("Component contains no words");
         }
@@ -74,12 +74,6 @@ public class TextServiceImpl implements TextService {
 
     @Override
     public int countEqualWords(TextComponent component) {
-//        List<TextComponent> allWords = component.getChildren().stream()
-//                .flatMap(paragraph -> paragraph.getChildren().stream())
-//                .flatMap(sentence -> sentence.getChildren().stream())
-//                .flatMap(lexeme -> lexeme.getChildren().stream())
-//                .filter(el -> el.getType() == ComponentType.WORD)
-//                .collect(Collectors.toList());
         //TODO
         return 0;
     }
@@ -104,8 +98,6 @@ public class TextServiceImpl implements TextService {
 
     private int countLetters(TextComponent component, String regex) {
         long count = component.getChildren().stream()
-                .flatMap(paragraph -> paragraph.getChildren().stream())
-                .flatMap(sentence -> sentence.getChildren().stream())
                 .flatMap(lexeme -> lexeme.getChildren().stream())
                 .filter(el -> el.getType() == ComponentType.WORD)
                 .flatMap(word -> word.getChildren().stream())
