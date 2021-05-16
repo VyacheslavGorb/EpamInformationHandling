@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class TextServiceImpl implements TextService {
     private static final Logger logger = LogManager.getLogger();
@@ -54,26 +55,31 @@ public class TextServiceImpl implements TextService {
             logger.log(Level.ERROR, "Illegal component type: {}. Expected TEXT.", component.getType());
             throw new TextException("Illegal component type: . Expected TEXT." + component.getType());
         }
+
         Optional<Integer> maxLength = component.getChildren().stream()
                 .flatMap(paragraph -> paragraph.getChildren().stream())
-                .flatMap(sentence -> sentence.getChildren().stream())
-                .flatMap(lexeme -> lexeme.getChildren().stream())
-                .filter(el -> el.getType() == ComponentType.WORD)
-                .map(el -> el.getChildren().size())
+                .map(this::countMaximalWordLength)
                 .max(Integer::compareTo);
 
-        if (maxLength.isEmpty()) {
+        if (maxLength.isEmpty()){
             logger.log(Level.ERROR, "Component contains no words");
             throw new TextException("Component contains no words");
         }
 
-        component.getChildren().stream()
+        return component.getChildren().stream()
                 .flatMap(paragraph -> paragraph.getChildren().stream())
-                .filter();
+                .filter(sentence -> countMaximalWordLength(sentence) == maxLength.get())
+                .collect(Collectors.toList());
     }
 
     @Override
     public int countEqualWords(TextComponent component) {
+//        List<TextComponent> allWords = component.getChildren().stream()
+//                .flatMap(paragraph -> paragraph.getChildren().stream())
+//                .flatMap(sentence -> sentence.getChildren().stream())
+//                .flatMap(lexeme -> lexeme.getChildren().stream())
+//                .filter(el -> el.getType() == ComponentType.WORD)
+//                .collect(Collectors.toList());
         //TODO
         return 0;
     }
@@ -84,7 +90,7 @@ public class TextServiceImpl implements TextService {
             logger.log(Level.ERROR, "Illegal component type: {}. Expected SENTENCE.", component.getType());
             throw new TextException("Illegal component type: . Expected SENTENCE." + component.getType());
         }
-        return countLetters(component,VOWEL_REGEX);
+        return countLetters(component, VOWEL_REGEX);
     }
 
     @Override
@@ -93,10 +99,10 @@ public class TextServiceImpl implements TextService {
             logger.log(Level.ERROR, "Illegal component type: {}. Expected SENTENCE.", component.getType());
             throw new TextException("Illegal component type: . Expected SENTENCE." + component.getType());
         }
-        return countLetters(component,CONSONANT_REGEX);
+        return countLetters(component, CONSONANT_REGEX);
     }
 
-    private int countLetters(TextComponent component, String regex){
+    private int countLetters(TextComponent component, String regex) {
         long count = component.getChildren().stream()
                 .flatMap(paragraph -> paragraph.getChildren().stream())
                 .flatMap(sentence -> sentence.getChildren().stream())
@@ -121,5 +127,14 @@ public class TextServiceImpl implements TextService {
             }
         }
         return count;
+    }
+
+    private int countMaximalWordLength(TextComponent sentence) {
+        return sentence.getChildren().stream()
+                .flatMap(lexeme -> lexeme.getChildren().stream())
+                .filter(el -> el.getType() == ComponentType.WORD)
+                .map(el -> el.getChildren().size())
+                .max(Integer::compareTo)
+                .orElse(-1);
     }
 }
