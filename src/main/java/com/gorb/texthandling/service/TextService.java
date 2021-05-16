@@ -12,7 +12,7 @@ public interface TextService {
 
     void removeSentencesContainingLessWords(TextComponent component, int wordCount) throws TextException;
 
-    int countEqualWords(TextComponent component);
+    int countEqualWords(TextComponent component, String wordToSearchFor) throws TextException;
 
     int countVowels(TextComponent component) throws TextException;
 

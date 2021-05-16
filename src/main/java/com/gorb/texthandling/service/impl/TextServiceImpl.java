@@ -73,9 +73,17 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public int countEqualWords(TextComponent component) {
-        //TODO
-        return 0;
+    public int countEqualWords(TextComponent component, String wordToSearchFor) throws TextException {
+        if (component.getType() != ComponentType.TEXT) {
+            logger.log(Level.ERROR, "Illegal component type: {}. Expected TEXT.", component.getType());
+            throw new TextException("Illegal component type: . Expected TEXT." + component.getType());
+        }
+        return (int) component.getChildren().stream()
+                .flatMap(paragraph -> paragraph.getChildren().stream())
+                .flatMap(lexeme -> lexeme.getChildren().stream())
+                .filter(el -> el.getType() == ComponentType.WORD)
+                .filter(word -> word.toString().equals(wordToSearchFor))
+                .count();
     }
 
     @Override
