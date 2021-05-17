@@ -22,11 +22,6 @@ public class TextComposite implements TextComponent {
     }
 
     @Override
-    public TextComponent getChild(int i) {
-        return components.get(i);
-    }
-
-    @Override
     public List<TextComponent> getChildren() {
         return components;
     }

@@ -25,12 +25,6 @@ public class SymbolLeaf implements TextComponent {
     }
 
     @Override
-    public TextComponent getChild(int i) {
-        logger.log(Level.ERROR, "Unsupported operation get child on leaf");
-        throw new UnsupportedOperationException("Unsupported operation get child on leaf");
-    }
-
-    @Override
     public List<TextComponent> getChildren() {
         logger.log(Level.ERROR, "Unsupported operation get children on leaf");
         throw new UnsupportedOperationException("Unsupported operation get children on leaf");
