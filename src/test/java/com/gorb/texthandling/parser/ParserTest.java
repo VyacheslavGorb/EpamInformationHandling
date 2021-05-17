@@ -2,7 +2,7 @@ package com.gorb.texthandling.parser;
 
 import com.gorb.texthandling.entity.ComponentType;
 import com.gorb.texthandling.entity.TextComponent;
-import com.gorb.texthandling.entity.impl.CompositeLeaf;
+import com.gorb.texthandling.entity.impl.SymbolLeaf;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.impl.*;
@@ -22,20 +22,20 @@ public class ParserTest {
         TextComponent word = new TextComposite(ComponentType.WORD);
         TextComponent expression = new TextComposite(ComponentType.EXPRESSION);
 
-        word.add(new CompositeLeaf(ComponentType.SYMBOL_LEAF, 'w'));
-        word.add(new CompositeLeaf(ComponentType.SYMBOL_LEAF, 'o'));
-        word.add(new CompositeLeaf(ComponentType.SYMBOL_LEAF, 'r'));
-        word.add(new CompositeLeaf(ComponentType.SYMBOL_LEAF, 'd'));
+        word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'w'));
+        word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'o'));
+        word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'r'));
+        word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'd'));
 
-        expression.add(new CompositeLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new CompositeLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new CompositeLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new CompositeLeaf(ComponentType.EXPRESSION_LEAF, '%'));
+        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
+        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
+        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
+        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
 
         lexeme1.add(word);
 
         lexeme2.add(expression);
-        lexeme2.add(new CompositeLeaf(ComponentType.PUNCTUATION_LEAF, '.'));
+        lexeme2.add(new SymbolLeaf(ComponentType.PUNCTUATION_LEAF, '.'));
 
         sentence.add(lexeme1);
         sentence.add(lexeme1);

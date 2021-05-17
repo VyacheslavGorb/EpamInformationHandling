@@ -10,12 +10,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.EnumSet;
 import java.util.List;
 
-public class CompositeLeaf implements TextComponent {
+public class SymbolLeaf implements TextComponent {
     private static final Logger logger = LogManager.getLogger();
     private ComponentType type;
     private char symbol;
 
-    public CompositeLeaf(ComponentType symbolType, char symbol) throws TextException {
+    public SymbolLeaf(ComponentType symbolType, char symbol) throws TextException {
         EnumSet<ComponentType> symbolTypes = EnumSet.range(ComponentType.SYMBOL_LEAF, ComponentType.EXPRESSION_LEAF);
         if (!symbolTypes.contains(symbolType)) {
             throw new TextException("Illegal leaf type");
@@ -57,7 +57,7 @@ public class CompositeLeaf implements TextComponent {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CompositeLeaf that = (CompositeLeaf) o;
+        SymbolLeaf that = (SymbolLeaf) o;
         return symbol == that.symbol && type == that.type;
     }
 

@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TextReader {
     private static final Logger logger = LogManager.getLogger();
@@ -23,7 +24,7 @@ public class TextReader {
         }
         Path path = Paths.get(filePathString);
         List<String> textLines;
-        try (var fileLines = Files.lines(path)) {
+        try (Stream<String> fileLines = Files.lines(path)) {
             textLines = fileLines.collect(Collectors.toList());
         } catch (IOException e) {
             logger.log(Level.ERROR, "Error while reading file {}", filePathString);

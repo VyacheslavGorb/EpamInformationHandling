@@ -2,7 +2,7 @@ package com.gorb.texthandling.parser.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
 import com.gorb.texthandling.entity.TextComponent;
-import com.gorb.texthandling.entity.impl.CompositeLeaf;
+import com.gorb.texthandling.entity.impl.SymbolLeaf;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
@@ -37,9 +37,9 @@ public class LexemeParser implements InformationParser {
             if (lexeme.matches(WORD_REGEX)) {
                 currentComponent = wordParser.parse(lexeme);
             } else if (lexeme.matches(WORD_REGEX) && lexeme.length() == 1) {
-                currentComponent = new CompositeLeaf(ComponentType.SYMBOL_LEAF, lexeme.charAt(0));
+                currentComponent = new SymbolLeaf(ComponentType.SYMBOL_LEAF, lexeme.charAt(0));
             } else if (lexeme.matches(PUNCTUATION_REGEX)) {
-                currentComponent = new CompositeLeaf(ComponentType.PUNCTUATION_LEAF, lexeme.charAt(0));
+                currentComponent = new SymbolLeaf(ComponentType.PUNCTUATION_LEAF, lexeme.charAt(0));
             } else {
                 currentComponent = expressionParser.parse(lexeme);
             }
