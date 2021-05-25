@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class LexemeParser implements InformationParser {
     private static final Logger logger = LogManager.getLogger();
-    private static final String LEXEME_SPLIT_REGEX = "(?=([)?,!-]|((?<!\\.)\\.(?!\\.))|(\\.{3}))$)|(?<=^\\()";
+    private static final String LEXEME_SPLIT_REGEX = "(?=([?,!-]|((?<!\\.)\\.(?!\\.))|(\\.{3}))$)|((?<=^\\()(?![0-9~]))|((?<=[a-zA-Z])(?=\\)))";
     private static final String WORD_REGEX = "[а-яА-Я\\w'-]+";
     private static final String PUNCTUATION_REGEX = "[?.,!)(-]|((?<!\\.)\\.(?!\\.))|(\\.{3})";
     private InformationParser wordParser;

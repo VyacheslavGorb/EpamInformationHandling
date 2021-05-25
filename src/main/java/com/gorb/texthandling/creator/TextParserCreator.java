@@ -13,7 +13,6 @@ public class TextParserCreator {
         LexemeParser lexemeParser = new LexemeParser(wordParser, expressionParser);
         SentenceParser sentenceParser = new SentenceParser(lexemeParser);
         ParagraphParser paragraphParser = new ParagraphParser(sentenceParser);
-        TextParser textParser = new TextParser(paragraphParser);
-        return textParser;
+        return new TextParser(paragraphParser);
     }
 }

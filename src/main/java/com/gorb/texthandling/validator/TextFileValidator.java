@@ -10,7 +10,7 @@ public class TextFileValidator {
         if (filePathString == null) {
             return false;
         }
-        File file = new File(filePathString);
+        File file = new File(filePathString); // throws NullPointerException if filePathString is null
         if (!file.isFile()) {
             return false;
         }
