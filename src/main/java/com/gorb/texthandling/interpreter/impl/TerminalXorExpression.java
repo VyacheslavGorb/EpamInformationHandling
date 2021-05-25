@@ -6,6 +6,6 @@ import com.gorb.texthandling.interpreter.ExpressionContext;
 public class TerminalXorExpression implements AbstractExpression {
     @Override
     public void interpret(ExpressionContext context) {
-        context.pushValue(context.popValue() | context.popValue());
+        context.pushValue(context.popValue() ^ context.popValue());
     }
 }

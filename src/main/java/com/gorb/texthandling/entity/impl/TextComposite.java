@@ -7,9 +7,9 @@ import com.gorb.texthandling.exception.TextException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class TextComposite implements TextComponent {
+    private static final String TABULATION_REGEX = "\t";
     private List<TextComponent> components = new ArrayList<>();
     private ComponentType type;
 
@@ -59,13 +59,14 @@ public class TextComposite implements TextComponent {
 
     @Override
     public String toString() {
-        StringJoiner joiner = new StringJoiner(type.getDelimiter());
+        StringBuilder builder = new StringBuilder();
         if (type == ComponentType.TEXT) {
-            joiner.add("\t");
+            builder.append(TABULATION_REGEX);
         }
+        String delimiter = type.getDelimiter();
         for (TextComponent component : components) {
-            joiner.add(component.toString());
+            builder.append(component.toString()).append(delimiter);
         }
-        return joiner.toString();
+        return builder.toString();
     }
 }

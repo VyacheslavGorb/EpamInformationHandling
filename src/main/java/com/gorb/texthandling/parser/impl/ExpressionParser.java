@@ -18,7 +18,6 @@ public class ExpressionParser implements InformationParser {
 
     @Override
     public TextComponent parse(String text) throws TextException {
-        System.out.println("text = " + text);
         ExpressionInterpreter interpreter = new ExpressionInterpreter(text);
         int value = interpreter.calculate();
         var component = new TextComposite(ComponentType.EXPRESSION);

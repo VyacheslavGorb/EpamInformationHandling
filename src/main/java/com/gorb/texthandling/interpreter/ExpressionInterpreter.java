@@ -1,5 +1,6 @@
 package com.gorb.texthandling.interpreter;
 
+import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.interpreter.impl.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +18,7 @@ public class ExpressionInterpreter {
     private static final String NUMBER_REGEX = "\\d+";
     private ArrayList<AbstractExpression> listExpression;
 
-    public ExpressionInterpreter(String infixExpression) {
+    public ExpressionInterpreter(String infixExpression) throws TextException {
         listExpression = new ArrayList<>();
         parse(infixExpression);
     }
@@ -31,7 +32,7 @@ public class ExpressionInterpreter {
         return context.popValue();
     }
 
-    private void parse(String infixExpression) {
+    private void parse(String infixExpression) throws TextException {
         String[] elementArray = infixExpression.split(INFIX_EXPRESSION_SPLIT_REGEX);
         List<String> postfixForm = convertInfixToPostfix(elementArray);
         for (String lexeme : postfixForm) {
@@ -58,13 +59,18 @@ public class ExpressionInterpreter {
                     listExpression.add(new TerminalNotExpression());
                     break;
                 default:
-                    listExpression.add(new NonterminalExpression(Integer.parseInt(lexeme)));
+                    try {
+                        listExpression.add(new NonterminalExpression(Integer.parseInt(lexeme)));
+                    } catch (NumberFormatException e) {
+                        logger.log(Level.ERROR, "Invalid expression {}", infixExpression);
+                        throw new TextException("Invalid expression " + infixExpression);
+                    }
             }
         }
         logger.log(Level.INFO, "Expression parsed successfully");
     }
 
-    private List<String> convertInfixToPostfix(String[] infixForm) {
+    private List<String> convertInfixToPostfix(String[] infixForm) throws TextException {
         List<String> result = new ArrayList<>();
         Deque<String> stack = new ArrayDeque<>();
         for (String s : infixForm) {
@@ -78,12 +84,18 @@ public class ExpressionInterpreter {
                 }
                 stack.pop();
             } else {
-                int currentElementPrecedence = ExpressionOperation.getOperationByString(s).getPrecedence();
-                while (!stack.isEmpty()
-                        && ExpressionOperation.getOperationByString(stack.peek()).getPrecedence() <= currentElementPrecedence) {
-                    result.add(stack.pop());
+                try {
+                    int currentElementPrecedence = ExpressionOperation.getOperationByString(s).getPrecedence();
+                    while (!stack.isEmpty()
+                            && ExpressionOperation.getOperationByString(stack.peek()).getPrecedence() <= currentElementPrecedence) {
+                        result.add(stack.pop());
+                    }
+                    stack.push(s);
+                } catch (IllegalArgumentException e) {
+                    logger.log(Level.ERROR, "Invalid expression");
+                    throw new TextException("Invalid expression");
                 }
-                stack.push(s);
+
             }
         }
         while (!stack.isEmpty()) {

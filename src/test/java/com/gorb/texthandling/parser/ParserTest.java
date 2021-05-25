@@ -27,10 +27,7 @@ public class ParserTest {
         word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'r'));
         word.add(new SymbolLeaf(ComponentType.SYMBOL_LEAF, 'd'));
 
-        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
-        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '%'));
+        expression.add(new SymbolLeaf(ComponentType.EXPRESSION_LEAF, '2'));
 
         lexeme1.add(word);
 
@@ -49,7 +46,7 @@ public class ParserTest {
         text.add(paragraph);
 
         return new Object[][]{
-                {text, "\tword word word %%%%. word word word %%%%.\n\tword word word %%%%. word word word %%%%."}
+                {text, "\tword word word 2|0. word word word 2|0.\n\tword word word 2|0. word word word 2|0."}
         };
     }
 
@@ -62,6 +59,6 @@ public class ParserTest {
         ParagraphParser paragraphParser = new ParagraphParser(sentenceParser);
         TextParser textParser = new TextParser(paragraphParser);
         TextComponent textComposite = textParser.parse(text);
-        assertEquals(expected,textComposite);
+        assertEquals(expected, textComposite);
     }
 }

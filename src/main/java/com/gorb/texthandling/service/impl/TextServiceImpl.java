@@ -80,6 +80,7 @@ public class TextServiceImpl implements TextService {
         }
         return (int) component.getChildren().stream()
                 .flatMap(paragraph -> paragraph.getChildren().stream())
+                .flatMap(sentence -> sentence.getChildren().stream())
                 .flatMap(lexeme -> lexeme.getChildren().stream())
                 .filter(el -> el.getType() == ComponentType.WORD)
                 .filter(word -> word.toString().equals(wordToSearchFor))

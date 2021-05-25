@@ -1,18 +1,39 @@
 package com.gorb.texthandling._main;
 
 import com.gorb.texthandling.creator.TextParserCreator;
+import com.gorb.texthandling.entity.TextComponent;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
+import com.gorb.texthandling.reader.TextFileReader;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.net.URL;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws TextException {
-        String text = "It has survived - not only (five) centuries, but also the leap into 13<<2 electronic typesetting, remaining 3>>5 essentially ~6&9|(3&4) unchanged. It was popularised in the 5|(1&2&(3|(4&(1^5|6&47)|3)|(~89&4|(42&7)))|1) with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+    private static final Logger logger = LogManager.getLogger();
 
-        InformationParser textParser = TextParserCreator.createParser();
-        var res = textParser.parse(text);
-
-        String line = "6";
-//        ExpressionInterpreter interpreter = new ExpressionInterpreter(line);
-//        System.out.println(interpreter.calculate());
+    public static void main(String[] args) {
+        URL fileURL = Main.class.getClassLoader().getResource("files/content.txt");
+        if (fileURL == null) {
+            logger.log(Level.FATAL, "File does not exist");
+            return;
+        }
+        File file = new File(fileURL.getFile());
+        String filePath = file.getAbsolutePath();
+        try {
+            TextFileReader reader = new TextFileReader();
+            List<String> lines = reader.readFile(filePath);
+            InformationParser textParser = TextParserCreator.createParser();
+            String text = String.join("\n", lines);
+            System.out.println("text = " + text);
+            TextComponent textComponent = textParser.parse(text);
+            System.out.println("textComponent = \n" + textComponent);
+        } catch (TextException e) {
+            logger.log(Level.FATAL, e.getMessage());
+        }
     }
 }
