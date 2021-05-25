@@ -1,7 +1,7 @@
 package com.gorb.texthandling.parser.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.entity.impl.SymbolLeaf;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
@@ -17,7 +17,7 @@ public class ExpressionParser implements InformationParser {
     private static final String SPLIT_REGEX = "";
 
     @Override
-    public TextComponent parse(String text) throws TextException {
+    public InformationComponent parse(String text) throws TextException {
         ExpressionInterpreter interpreter = new ExpressionInterpreter(text);
         int value = interpreter.calculate();
         var component = new TextComposite(ComponentType.EXPRESSION);

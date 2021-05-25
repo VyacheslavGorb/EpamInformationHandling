@@ -1,7 +1,7 @@
 package com.gorb.texthandling.parser.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.entity.impl.SymbolLeaf;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
@@ -24,7 +24,7 @@ public class LexemeParser implements InformationParser {
     }
 
     @Override
-    public TextComponent parse(String text) throws TextException {
+    public InformationComponent parse(String text) throws TextException {
         if (wordParser == null || expressionParser == null) {
             logger.log(Level.ERROR, "At least one of parsers is not specified");
             throw new TextException("At least one of parsers is not specified");
@@ -33,7 +33,7 @@ public class LexemeParser implements InformationParser {
         String[] lexemes = text.split(LEXEME_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.LEXEME);
         for (String lexeme : lexemes) {
-            TextComponent currentComponent;
+            InformationComponent currentComponent;
             if (lexeme.matches(WORD_REGEX)) {
                 currentComponent = wordParser.parse(lexeme);
             } else if (lexeme.matches(WORD_REGEX) && lexeme.length() == 1) {

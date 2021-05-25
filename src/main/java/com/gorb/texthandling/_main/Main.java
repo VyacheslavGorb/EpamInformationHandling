@@ -1,7 +1,7 @@
 package com.gorb.texthandling._main;
 
 import com.gorb.texthandling.creator.TextParserCreator;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
 import com.gorb.texthandling.reader.TextFileReader;
@@ -30,8 +30,8 @@ public class Main {
             InformationParser textParser = TextParserCreator.createParser();
             String text = String.join("\n", lines);
             System.out.println("text = " + text);
-            TextComponent textComponent = textParser.parse(text);
-            System.out.println("textComponent = \n" + textComponent);
+            InformationComponent informationComponent = textParser.parse(text);
+            System.out.println("textComponent = \n" + informationComponent);
         } catch (TextException e) {
             logger.log(Level.FATAL, e.getMessage());
         }

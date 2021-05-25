@@ -1,7 +1,7 @@
 package com.gorb.texthandling.service.impl;
 
 import com.gorb.texthandling.creator.TextParserCreator;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
 import com.gorb.texthandling.parser.impl.ExpressionParser;
@@ -44,7 +44,7 @@ public class TextServiceImplTest {
     }
 
     @Test(dataProvider = "dataParagraph")
-    public void sortParagraphsBySentenceCountTest(TextComponent expected, TextComponent component) throws TextException {
+    public void sortParagraphsBySentenceCountTest(InformationComponent expected, InformationComponent component) throws TextException {
         service.sortParagraphsBySentenceCount(component);
         assertEquals(component, expected);
     }
@@ -59,7 +59,7 @@ public class TextServiceImplTest {
     }
 
     @Test(dataProvider = "dataEqualWords")
-    public void countEqualWordsTest(Integer expected, TextComponent component, String word) throws TextException {
+    public void countEqualWordsTest(Integer expected, InformationComponent component, String word) throws TextException {
         Integer count = service.countEqualWords(component, word);
         assertEquals(expected, count);
     }
@@ -75,7 +75,7 @@ public class TextServiceImplTest {
     }
 
     @Test(dataProvider = "dataVowels")
-    public void countVowelsTest(Integer expected, TextComponent component) throws TextException {
+    public void countVowelsTest(Integer expected, InformationComponent component) throws TextException {
         Integer res = service.countVowels(component);
         assertEquals(expected, res);
     }
@@ -92,42 +92,42 @@ public class TextServiceImplTest {
     }
 
     @Test(dataProvider = "dataConsonants")
-    public void countConsonantsTest(Integer expected, TextComponent component) throws TextException {
+    public void countConsonantsTest(Integer expected, InformationComponent component) throws TextException {
         Integer res = service.countConsonants(component);
         assertEquals(expected, res);
     }
 
     @DataProvider(name = "dataLongestWord")
     public Object[][] createLongestWordData() throws TextException {
-        TextComponent sentence1 = sentenceParser.parse("Seentence3.");
-        TextComponent sentence2 = sentenceParser.parse("Seentence2.");
-        TextComponent textComponent1 = textParser.parse("Sentence1. Seentence3. Seentence2.");
-        List<TextComponent> sentences = List.of(sentence1, sentence2);
+        InformationComponent sentence1 = sentenceParser.parse("Seentence3.");
+        InformationComponent sentence2 = sentenceParser.parse("Seentence2.");
+        InformationComponent informationComponent1 = textParser.parse("Sentence1. Seentence3. Seentence2.");
+        List<InformationComponent> sentences = List.of(sentence1, sentence2);
 
         return new Object[][]{
-                {textComponent1, sentences}
+                {informationComponent1, sentences}
         };
     }
 
     @Test(dataProvider = "dataLongestWord")
-    public void findSentencesContainingLongestWordTest(TextComponent component, List<TextComponent> expected)
+    public void findSentencesContainingLongestWordTest(InformationComponent component, List<InformationComponent> expected)
             throws TextException {
-        List<TextComponent> list = service.findSentencesContainingLongestWord(component);
+        List<InformationComponent> list = service.findSentencesContainingLongestWord(component);
         assertEquals(expected, list);
     }
 
 
     @DataProvider(name = "dataLessWords")
     public Object[][] createLessWordsData() throws TextException {
-        TextComponent textComponent1 = textParser.parse("Sentence1 w f. Seentence3 r. Seentence2 rt t.");
-        TextComponent textComponent2 = textParser.parse("Sentence1 w f. Seentence2 rt t.");
+        InformationComponent informationComponent1 = textParser.parse("Sentence1 w f. Seentence3 r. Seentence2 rt t.");
+        InformationComponent informationComponent2 = textParser.parse("Sentence1 w f. Seentence2 rt t.");
         return new Object[][]{
-                {textComponent1, 3, textComponent2}
+                {informationComponent1, 3, informationComponent2}
         };
     }
 
     @Test(dataProvider = "dataLessWords")
-    public void removeSentencesContainingLessWords(TextComponent component, int count, TextComponent expected)
+    public void removeSentencesContainingLessWords(InformationComponent component, int count, InformationComponent expected)
             throws TextException {
         service.removeSentencesContainingLessWords(component, count);
         assertEquals(expected, component);

@@ -1,16 +1,16 @@
 package com.gorb.texthandling.entity.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.exception.TextException;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class TextComposite implements TextComponent {
+public class TextComposite implements InformationComponent {
     private static final String TABULATION_REGEX = "\t";
-    private List<TextComponent> components = new ArrayList<>();
+    private List<InformationComponent> components = new ArrayList<>();
     private ComponentType type;
 
     public TextComposite(ComponentType type) throws TextException {
@@ -22,17 +22,17 @@ public class TextComposite implements TextComponent {
     }
 
     @Override
-    public List<TextComponent> getChildren() {
+    public List<InformationComponent> getChildren() {
         return components;
     }
 
     @Override
-    public void add(TextComponent component) {
+    public void add(InformationComponent component) {
         components.add(component);
     }
 
     @Override
-    public void remove(TextComponent component) {
+    public void remove(InformationComponent component) {
         components.remove(component);
     }
 
@@ -64,7 +64,7 @@ public class TextComposite implements TextComponent {
             builder.append(TABULATION_REGEX);
         }
         String delimiter = type.getDelimiter();
-        for (TextComponent component : components) {
+        for (InformationComponent component : components) {
             builder.append(component.toString()).append(delimiter);
         }
         return builder.toString();

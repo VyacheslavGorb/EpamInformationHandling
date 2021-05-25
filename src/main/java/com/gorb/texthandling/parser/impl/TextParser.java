@@ -1,7 +1,7 @@
 package com.gorb.texthandling.parser.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
@@ -19,7 +19,7 @@ public class TextParser implements InformationParser {
     }
 
     @Override
-    public TextComponent parse(String text) throws TextException {
+    public InformationComponent parse(String text) throws TextException {
         if (nextParser == null) {
             logger.log(Level.ERROR, "Paragraph parser is not specified");
             throw new TextException("Paragraph parser is not specified");
@@ -28,7 +28,7 @@ public class TextParser implements InformationParser {
         String[] paragraphs = text.strip().split(TEXT_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.TEXT);
         for (String paragraph : paragraphs) {
-            TextComponent paragraphComponent = nextParser.parse(paragraph);
+            InformationComponent paragraphComponent = nextParser.parse(paragraph);
             component.add(paragraphComponent);
         }
         logger.log(Level.INFO, "Text parsed successfully");

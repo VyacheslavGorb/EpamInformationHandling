@@ -1,7 +1,7 @@
 package com.gorb.texthandling.parser.impl;
 
 import com.gorb.texthandling.entity.ComponentType;
-import com.gorb.texthandling.entity.TextComponent;
+import com.gorb.texthandling.entity.InformationComponent;
 import com.gorb.texthandling.entity.impl.TextComposite;
 import com.gorb.texthandling.exception.TextException;
 import com.gorb.texthandling.parser.InformationParser;
@@ -19,7 +19,7 @@ public class SentenceParser implements InformationParser {
     }
 
     @Override
-    public TextComponent parse(String text) throws TextException {
+    public InformationComponent parse(String text) throws TextException {
         if (nextParser == null) {
             logger.log(Level.ERROR, "Lexeme parser is not specified");
             throw new TextException("Lexeme parser is not specified");
@@ -27,7 +27,7 @@ public class SentenceParser implements InformationParser {
         String[] lexemes = text.split(SENTENCE_SPLIT_REGEX);
         var component = new TextComposite(ComponentType.SENTENCE);
         for (String lexeme : lexemes) {
-            TextComponent lexemeComponent = nextParser.parse(lexeme);
+            InformationComponent lexemeComponent = nextParser.parse(lexeme);
             component.add(lexemeComponent);
         }
         logger.log(Level.INFO, "Sentence parsed successfully");
