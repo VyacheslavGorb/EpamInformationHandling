@@ -45,7 +45,7 @@ public class LexemeParser implements InformationParser {
             }
             component.add(currentComponent);
         }
-        logger.log(Level.INFO, "Lexeme parsed successfully");
+        logger.log(Level.INFO, "Lexeme parsed successfully: " + text);
         return component;
     }
 }

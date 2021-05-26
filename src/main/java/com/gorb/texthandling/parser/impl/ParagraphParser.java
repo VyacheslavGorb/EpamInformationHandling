@@ -30,7 +30,7 @@ public class ParagraphParser implements InformationParser {
             InformationComponent sentenceComponent = nextParser.parse(sentence);
             component.add(sentenceComponent);
         }
-        logger.log(Level.INFO, "Paragraph parsed successfully");
+        logger.log(Level.INFO, "Paragraph parsed successfully: " + text);
         return component;
     }
 }

@@ -22,7 +22,7 @@ public class WordParser implements InformationParser {
             var symbolComponent = new SymbolLeaf(ComponentType.SYMBOL_LEAF, ch.charAt(0));
             component.add(symbolComponent);
         }
-        logger.log(Level.INFO, "Word parsed successfully");
+        logger.log(Level.INFO, "Word parsed successfully: " + text);
         return component;
     }
 }

@@ -30,7 +30,7 @@ public class SentenceParser implements InformationParser {
             InformationComponent lexemeComponent = nextParser.parse(lexeme);
             component.add(lexemeComponent);
         }
-        logger.log(Level.INFO, "Sentence parsed successfully");
+        logger.log(Level.INFO, "Sentence parsed successfully: " + text);
         return component;
     }
 }

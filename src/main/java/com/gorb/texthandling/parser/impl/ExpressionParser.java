@@ -26,7 +26,7 @@ public class ExpressionParser implements InformationParser {
             var symbolComponent = new SymbolLeaf(ComponentType.EXPRESSION_LEAF, ch.charAt(0));
             component.add(symbolComponent);
         }
-        logger.log(Level.INFO, "Expression parsed successfully");
+        logger.log(Level.INFO, "Expression parsed successfully: " + text);
         return component;
     }
 }

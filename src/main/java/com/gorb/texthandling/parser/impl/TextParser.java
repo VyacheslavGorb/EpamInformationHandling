@@ -31,7 +31,7 @@ public class TextParser implements InformationParser {
             InformationComponent paragraphComponent = nextParser.parse(paragraph);
             component.add(paragraphComponent);
         }
-        logger.log(Level.INFO, "Text parsed successfully");
+        logger.log(Level.INFO, "Text parsed successfully: " + text);
         return component;
     }
 }

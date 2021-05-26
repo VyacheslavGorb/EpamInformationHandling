@@ -95,7 +95,6 @@ public class ExpressionInterpreter {
                     logger.log(Level.ERROR, "Invalid expression");
                     throw new TextException("Invalid expression");
                 }
-
             }
         }
         while (!stack.isEmpty()) {
